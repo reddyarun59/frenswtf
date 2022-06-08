@@ -2,6 +2,7 @@ const express= require('express');
 const {connectDB}= require('./config/db')
 const dotenv= require('dotenv');
 const { chats } = require('./data/data');
+const { errorHandler } = require('./middleware/errorHandler');
 
 dotenv.config()
 
@@ -18,6 +19,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/user", require("./routes/user"))
+
+app.use(errorHandler)
 
 app.listen(port, ()=>{
     console.log(`App is Listening at port: ${port}`)
