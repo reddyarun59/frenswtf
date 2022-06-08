@@ -1,13 +1,18 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import {useNavigate} from "react-router-dom"
+import { useToast } from "@chakra-ui/react"
+import axios from 'axios'
 
 const Login = () => {
+    const navigate=useNavigate()
+    const toast=useToast()
     const [formData, setFormData] =useState({
         name:"",
         email:"",
         password:"",
     })
-
+    const [loading, setLoading] = useState(false)
     const [show, setShow] = useState(false)
     const { name, email, password } = formData
 
@@ -23,8 +28,57 @@ const Login = () => {
     }
 
 
-    const submitHandler=()=>{
+    const submitHandler=async()=>{
         
+        setLoading(true);
+    if (!email || !password) {
+      toast({
+        title: "Please Fill all the Feilds",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      setLoading(false);
+      return;
+    }
+
+    // console.log(email, password);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
+        "/api/user/login",
+        { email, password },
+        config
+      );
+
+      // console.log(JSON.stringify(data));
+      toast({
+        title: "Login Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      setLoading(false);
+    }
     }
 
   return (
@@ -46,7 +100,7 @@ const Login = () => {
         </FormControl>
 
         <Button colorScheme="blue" width="100%" style={{marginTop:"15px"}} onClick={submitHandler}>
-            Sign Up
+            Sign In
         </Button>
         <Button varient="solid" colorScheme="red" width="100%" style={{marginTop:"15px"}} onClick={()=>setFormData(prevState=>({email:"test@gmail.com",password:"test123"}))}>
             Get Guest User Credentials
