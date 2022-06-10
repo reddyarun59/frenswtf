@@ -4,7 +4,7 @@ import  ChatContext, { ChatState }  from '../Context/ChatProvider'
 
 const Chats = () => {
 
-    const [user, setUser]= useState("")
+    const { user } = ChatState();
 
     // const [chats, setChats]=useState([])
 

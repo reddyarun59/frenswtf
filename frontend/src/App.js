@@ -24,13 +24,9 @@ function App() {
 
 
   return (
-    <div className="App">
-      <ChatProvider>
-          <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/chats" element={<Chats/>} />
-          </Routes>  
-      </ChatProvider>
+      <div className="App">
+      <Route path="/" component={Home} exact />
+      <Route path="/chats" component={Chats} />
     </div>
   );
 }
