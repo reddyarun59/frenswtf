@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import { useToast } from "@chakra-ui/react"
 import axios from 'axios'
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
 
-    const navigate=useNavigate()
+    const history=useHistory()
     const toast=useToast()
     const [formData, setFormData] =useState({
         name:"",
