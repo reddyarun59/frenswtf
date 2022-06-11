@@ -4,7 +4,8 @@ const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router()
 
-router.route("/").get(protect, fetchChats).post(protect, accessChat)
+router.route("/").get(protect, fetchChats)
+router.route("/").post(protect, accessChat)
 
 router.route("/group").post(protect, createGroupChat)
 

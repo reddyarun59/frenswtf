@@ -23,7 +23,7 @@ const SideDrawer = () => {
     const [search, setSearch]=useState("")
     const [searchResult, setSearchResult]=useState([])
     const [loading, setLoading]=useState(false)
-    const [loadingChat, setLoadingChat]=useState()
+    const [loadingChat, setLoadingChat]=useState(false)
 
     const logoutHandler=()=>{
         localStorage.removeItem("userInfo")
@@ -71,7 +71,7 @@ const SideDrawer = () => {
 
         try {
             
-            setLoading(true);
+            setLoadingChat(true);
             const config={
                 headers: {
                     "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const SideDrawer = () => {
                 setChats([data, ...chats])
             }
             setSelectedChat(data)
-            setLoading(false);
+            setLoadingChat(false);
             onClose()
         } catch (error) {
             toast({
