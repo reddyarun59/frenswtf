@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider'
 import { Box, Text } from '@chakra-ui/layout'
-import { Avatar, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
+import { Avatar, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button'
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons"
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -16,7 +16,7 @@ import UserListItem from '../UserAvatar/UserListItem'
 
 const SideDrawer = () => {
     const toast=useToast()
-    const { user, setSelectedChat } = ChatState();
+    const { user, setSelectedChat, chats, setChats } = ChatState();
     const history =useHistory()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -79,13 +79,23 @@ const SideDrawer = () => {
                 }
             }
 
-            const {data}= await axios.post("/ap/chat", {userId}, config)
+            const {data}= await axios.post("/api/chat", {userId}, config)
 
+            if(!chats.find((c)=>c._id===data._id)){
+                setChats([data, ...chats])
+            }
             setSelectedChat(data)
             setLoading(false);
             onClose()
         } catch (error) {
-            
+            toast({
+                title:"Error Fetching the CHat",
+                description: error.message,
+                status:"Error",
+                duration: 5000,
+                isClosable: true,
+                position: "top-right",
+            })
         }
 
     }
@@ -151,14 +161,8 @@ const SideDrawer = () => {
                     <UserListItem key={user._id} user={user} handleFunction={()=>accessChat(user._id)} />
                 ))
             )}
+            {loading&&<Spinner ml="auto" display="flex"/>}
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='blue'>Save</Button>
-          </DrawerFooter>
         </DrawerContent>
         </Drawer>
     </>
