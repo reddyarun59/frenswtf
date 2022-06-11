@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://127.0.0.1:5000",
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -14,6 +15,7 @@
     "framer-motion": "^6.3.10",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
