@@ -8,7 +8,7 @@ import { getSender } from "../../config/ChatLogic"
 import GroupChatModal from './GroupChatModal'
 
 const MyChats = ({fetchAgain}) => {
-  const [ loggedUser, setLoggedUser ]=useState()
+  const [ loggedUser, setLoggedUser ]=useState("")
   const { user, chats, setChats, selectedChat, setSelectedChat}= ChatState();
   const toast =useToast()
 
@@ -78,7 +78,7 @@ const MyChats = ({fetchAgain}) => {
           // }
           setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         fetchChats()
-      }, [])
+      },[fetchAgain])
       console.log(chats)
   return (
     <Box display={{ base: selectedChat ? "none" : "flex", md: "flex" }} flexDir="column" alignItems="center" p={3} bg="lightcyan" w={{ base: "100%", md: "31%" }}
