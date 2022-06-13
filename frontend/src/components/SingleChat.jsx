@@ -6,6 +6,13 @@ import { ChatState } from '../Context/ChatProvider';
 import ProfileModal from './misc/ProfileModal';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
 import axios from 'axios';
+import ViewChats from './ViewChats';
+import io from "socket.io-client"
+
+const ENDPOINT="http://localhost:5000"
+
+let socket;
+let selectedChatCompare;
 
 const SingleChat = ({fetchAgain, setFetchAgain}) => {
 
@@ -15,6 +22,9 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState()
+    const [socketConnected, setSocketConnected] = useState(false)
+    const [typing, setTyping]=useState(false)
+    const [isTyping, setIsTyping] = useState(false)
 
     const fetchMessages=async()=>{
       if(!selectedChat){
@@ -35,6 +45,8 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         setMessages(data)
         console.log(messages)
         setLoading(false)
+
+        socket.emit("join chat", selectedChat._id)
       } catch (error) {
         toast({
           title: "Error Occured!",
@@ -48,12 +60,36 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     }
 
     useEffect(()=>{
+      socket=io(ENDPOINT)
+
+      socket.emit("setup", user)
+      socket.on("connected", ()=>setSocketConnected(true))
+
+      socket.on("typing", ()=>setIsTyping(true))
+      socket.on("stop typing", ()=>setIsTyping(false))
+    },[])
+
+    useEffect(()=>{
       fetchMessages()
+
+      selectedChatCompare=selectedChat;
 
     }, [selectedChat])
 
+    useEffect(()=>{
+
+      socket.on("message received", (newMessageReceived)=>{
+        if(!selectedChatCompare|| selectedChatCompare._id !== newMessageReceived.chat._id){
+          //give notiff
+        }else{
+          setMessages([...messages, newMessageReceived])
+        }
+      })
+    })
+
     const sendMessage = async(event)=>{
       if(event.key==="Enter" && newMessage){
+        socket.emit("stop typing", selectedChat._id)
         try {
           
           const config = {
@@ -69,6 +105,8 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
             chatId:selectedChat._id
           }, config)
           console.log(data)
+
+          socket.emit("new message", data)
           setMessages((prevstate)=>[...prevstate, data])
         } catch (error) {
           toast({
@@ -83,8 +121,33 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
       }
     }
 
+    
+
     const typingHandler=(e)=>{
       setNewMessage(e.target.value)
+
+      if(!socketConnected){
+        return
+      }
+
+      if(!typing){
+        setTyping(true)
+        socket.emit("typing", selectedChat._id)
+      }
+
+      let lastTypingTime = new Date().getTime()
+      let timerLength=3000
+
+      setTimeout(()=>{
+
+        let timeNow=new Date().getTime()
+        let timeDiff = timeNow - lastTypingTime
+
+        if(timeDiff >= timerLength&&typing){
+          socket.emit("stop typing", selectedChat._id)
+          setTyping(false)
+        }
+      }, timerLength)
     }
   return (
     <>
@@ -111,16 +174,17 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                 </>
             ):(
                 <>{selectedChat.chatName.toUpperCase()}
-                    <UpdateGroupChatModal fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}/>
+                    <UpdateGroupChatModal fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} fetchMessages={fetchMessages}/>
                 </>
             )}
             </Text>
             <Box display="flex" flexDir="column" justifyContent="flex-end" p={3} bg="#E8E8E8" w="100%" h="100%" borderRadius="lg" overflowY="hidden">
               {loading? (<Spinner size="xl" w={20} h={20} alignSelf="center" margin="auto"/>):
               (<div>
-                {/* Messages */}
+                <ViewChats messages={messages}/>
                 </div>)}
                 <FormControl onKeyDown={sendMessage} mt={3} isRequired>
+                  {isTyping?<div>Typing....</div>:<></>}
                   <Input varient="filled" bg="#E0E0E0" placeholder="Enter a Message" onChange={typingHandler} value={newMessage}/>
                 </FormControl>
             </Box>
