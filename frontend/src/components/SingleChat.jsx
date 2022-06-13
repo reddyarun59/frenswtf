@@ -18,7 +18,7 @@ let selectedChatCompare;
 
 const SingleChat = ({fetchAgain, setFetchAgain}) => {
 
-    const { user, selectedChat, setSelectedChat}=ChatState();
+    const { user, selectedChat, setSelectedChat, notification, setNotification } =ChatState();
     const toast=useToast()
 
     const [messages, setMessages] = useState([])
@@ -91,13 +91,17 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
 
       socket.on("message received", (newMessageReceived)=>{
         if(!selectedChatCompare|| selectedChatCompare._id !== newMessageReceived.chat._id){
-          //give notiff
+          
+          if(!notification.includes(newMessageReceived)){
+            setNotification([newMessageReceived, ...notification])
+            setFetchAgain(prevstate=>!prevstate)
+          }
+
         }else{
           setMessages([...messages, newMessageReceived])
         }
       })
     })
-
     const sendMessage = async(event)=>{
       if(event.key==="Enter" && newMessage){
         socket.emit("stop typing", selectedChat._id)

@@ -6,7 +6,7 @@ const ChatContext = createContext();
 export const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
   const [user, setUser] = useState("");
-  //const [notification, setNotification] = useState([]);
+  const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState([]);
 
   const history = useHistory();
@@ -17,7 +17,7 @@ export const ChatProvider = ({ children }) => {
     setUser(userInfo);
 
     if (!userInfo){history.push("/")}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [history]);
 
   return (
@@ -27,8 +27,8 @@ export const ChatProvider = ({ children }) => {
         setSelectedChat,
         user,
         setUser,
-        // notification,
-        // setNotification,
+        notification,
+        setNotification,
         chats,
         setChats,
       }}
