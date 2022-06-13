@@ -8,6 +8,8 @@ import UpdateGroupChatModal from './UpdateGroupChatModal';
 import axios from 'axios';
 import ViewChats from './ViewChats';
 import io from "socket.io-client"
+import Lottie  from "react-lottie"
+import animationData from "../animations/typing.json"
 
 const ENDPOINT="http://localhost:5000"
 
@@ -25,6 +27,15 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [socketConnected, setSocketConnected] = useState(false)
     const [typing, setTyping]=useState(false)
     const [isTyping, setIsTyping] = useState(false)
+
+    const defaultOptions={
+      loop: true,
+      autoplay: true,
+      animationData:animationData,
+      renderSettings:{
+        preserveAspectRatio: "xMidYMid slice"
+      }
+    }
 
     const fetchMessages=async()=>{
       if(!selectedChat){
@@ -184,7 +195,9 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                 <ViewChats messages={messages}/>
                 </div>)}
                 <FormControl onKeyDown={sendMessage} mt={3} isRequired>
-                  {isTyping?<div>Typing....</div>:<></>}
+                  {isTyping?<div>
+                    <Lottie options={defaultOptions} width={70} style={{marginBottom:"15px", marginLeft:"0"}}/>
+                  </div>:<></>}
                   <Input varient="filled" bg="#E0E0E0" placeholder="Enter a Message" onChange={typingHandler} value={newMessage}/>
                 </FormControl>
             </Box>
