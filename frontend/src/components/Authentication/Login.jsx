@@ -8,7 +8,6 @@ const Login = () => {
     const history=useHistory()
     const toast=useToast()
     const [formData, setFormData] =useState({
-        name:"",
         email:"",
         password:"",
     })
@@ -55,19 +54,21 @@ const Login = () => {
         "/api/user/login",
         { email, password },
         config
-      );
-
-      // console.log(JSON.stringify(data));
-      toast({
-        title: "Login Successful",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
-      history.push("/chats");
+        );
+        
+        // console.log(JSON.stringify(data));
+        toast({
+          title: "Login Successful",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+        });
+        //JSON.parse(localStorage.getItem("userInfo"));
+        setLoading(false);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        history.push("/chats")
+     // history.push("/chats")
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -83,10 +84,7 @@ const Login = () => {
 
   return (
     <VStack spacing="5px">
-        <FormControl>
-            <FormLabel>Name</FormLabel>
-            <Input type="text" placeholder="Enter your Name" onChange={handleChange} name="name" value={name}/>
-        </FormControl>
+        
         <FormControl>
             <FormLabel>Email</FormLabel>
             <Input type="email" placeholder="Enter your Email" onChange={handleChange} name="email" value={email}/>

@@ -193,7 +193,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                 </>
             )}
             </Text>
-            <Box display="flex" flexDir="column" justifyContent="flex-end" p={3} bg="#E8E8E8" w="100%" h="100%" borderRadius="lg" overflowY="hidden">
+            <Box display="flex" flexDir="column" justifyContent="flex-end" p={3} bg="#FFE6E6" w="100%" h="100%" borderRadius="lg" overflowY="hidden">
               {loading? (<Spinner size="xl" w={20} h={20} alignSelf="center" margin="auto"/>):
               (<div>
                 <ViewChats messages={messages}/>

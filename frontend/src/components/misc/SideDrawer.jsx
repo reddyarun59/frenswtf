@@ -107,12 +107,12 @@ const SideDrawer = () => {
         <Box display="flex"
         justifyContent="space-between"
         alignItems="center"
-        bg="white"
+        bg="#FFE6E6"
         w="100%"
         p="5px 10px 5px 10px"
         borderWidth="5px">
             <Tooltip label="Search users to Chat" hasArrow placement="bottom-end">
-                <Button varient="ghost" onClick={onOpen}>
+                <Button varient="ghost" onClick={onOpen} bg="#F2D1F1">
                 <FaSearch/>
                 <Text display={{base:"none", md:"flex"}} px="4">
                     Search User
@@ -120,7 +120,7 @@ const SideDrawer = () => {
                 </Button>
             </Tooltip>
             <Text fontSize="2xl" fontFamily="Work sans">
-                Frens
+                Frenns
             </Text>
             <div>
                 <Menu>
@@ -159,9 +159,9 @@ const SideDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">Create your account</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px" bg="#F9F9F9">Create your account</DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody bg="#F9F9F9">
             <Box display="flex" pb={2}>
                 <Input placeholder="Search by name or email" mr={2} value={search} onChange={(e)=>setSearch(e.target.value)}  />
                 <Button onClick={handleSearch}>

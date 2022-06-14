@@ -81,7 +81,7 @@ const MyChats = ({fetchAgain}) => {
       },[fetchAgain])
       console.log(chats)
   return (
-    <Box display={{ base: selectedChat ? "none" : "flex", md: "flex" }} flexDir="column" alignItems="center" p={3} bg="lightcyan" w={{ base: "100%", md: "31%" }}
+    <Box display={{ base: selectedChat ? "none" : "flex", md: "flex" }} flexDir="column" alignItems="center" p={3} bg="#F2D1D1" w={{ base: "100%", md: "31%" }}
       borderRadius="lg" borderWidth="1px">
         <Box pb={3} px={3} fontSize={{ base: "28px", md: "30px" }} display="flex" w="100%" justifyContent="space-between" alignItems="center">
           My Chats
@@ -95,14 +95,14 @@ const MyChats = ({fetchAgain}) => {
           </Button>
         </GroupChatModal>
         </Box>
-        <Box display="flex" flexDir="column" p={3} bg="#F8F8F8" w="100%" h="100%" borderRadius="lg" overflowY="hidden">
+        <Box display="flex" flexDir="column" p={3} bg="#FFE6E6" w="100%" h="100%" borderRadius="lg" overflowY="hidden">
           {chats?(
             <Stack overflowY="scroll">
             {chats.map((chat) => (
               <Box
                 onClick={() => setSelectedChat(chat)}
                 cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                bg={selectedChat === chat ? "#A91079" : "#E9D5CA"}
                 color={selectedChat === chat ? "white" : "black"}
                 px={3}
                 py={2}
