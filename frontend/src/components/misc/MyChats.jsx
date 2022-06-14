@@ -24,7 +24,7 @@ const MyChats = ({fetchAgain}) => {
         }
 
         const {data}=await axios.get("/api/chat", config)
-        console.log(data)
+        // console.log(data)
 
         setChats(data)
       //setLoading(false);
@@ -79,7 +79,7 @@ const MyChats = ({fetchAgain}) => {
           setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
         fetchChats()
       },[fetchAgain])
-      console.log(chats)
+      // console.log(chats)
   return (
     <Box display={{ base: selectedChat ? "none" : "flex", md: "flex" }} flexDir="column" alignItems="center" p={3} bg="#F2D1D1" w={{ base: "100%", md: "31%" }}
       borderRadius="lg" borderWidth="1px">

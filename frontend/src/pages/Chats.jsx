@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import  ChatContext, { ChatState }  from '../Context/ChatProvider'
+import React, {  useState } from 'react'
+//import axios from 'axios'
+import  { ChatState }  from '../Context/ChatProvider'
 import { Box } from "@chakra-ui/react"
 import SideDrawer from '../components/misc/SideDrawer'
 import MyChats from '../components/misc/MyChats'
@@ -13,7 +13,7 @@ const Chats = () => {
 
     const { user } = ChatState();
 
-    console.log(user)
+    // console.log(user)
 
     
   return (

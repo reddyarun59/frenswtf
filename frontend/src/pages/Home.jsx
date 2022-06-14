@@ -1,14 +1,14 @@
 import { Box, Container, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Login from '../components/Authentication/Login'
 import SignUp from '../components/Authentication/SignUp'
-import {ChatContext, ChatState} from '../Context/ChatProvider'
+// import {ChatContext, ChatState} from '../Context/ChatProvider'
 
 const Home = () => {
 
     const history = useHistory();
-    const {setUser}=ChatState();
+    // const {setUser}=ChatState();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userInfo"));

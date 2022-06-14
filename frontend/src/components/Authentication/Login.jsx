@@ -13,7 +13,7 @@ const Login = () => {
     })
     const [loading, setLoading] = useState(false)
     const [show, setShow] = useState(false)
-    const { name, email, password } = formData
+    const { email, password } = formData
 
     const handleChange=(e)=>{
         setFormData(prevState=>({
@@ -65,9 +65,9 @@ const Login = () => {
           position: "top-right",
         });
         //JSON.parse(localStorage.getItem("userInfo"));
-        setLoading(false);
         localStorage.setItem("userInfo", JSON.stringify(data));
         history.push("/chats")
+        setLoading(false);
      // history.push("/chats")
     } catch (error) {
       toast({
@@ -100,7 +100,7 @@ const Login = () => {
         <Button colorScheme="blue" width="100%" style={{marginTop:"15px"}} onClick={submitHandler}>
             Sign In
         </Button>
-        <Button varient="solid" colorScheme="red" width="100%" style={{marginTop:"15px"}} onClick={()=>setFormData(prevState=>({email:"test@gmail.com",password:"test123"}))}>
+        <Button varient="solid" colorScheme="red" width="100%" style={{marginTop:"15px"}} onClick={()=>setFormData(({email:"gavinbelson@gmail.com",password:"123456"}))}>
             Get Guest User Credentials
         </Button>
     </VStack>

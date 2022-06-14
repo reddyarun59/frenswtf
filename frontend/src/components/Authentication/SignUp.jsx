@@ -132,7 +132,7 @@ const SignUp = () => {
               });
               setLoading(false);
         }
-        console.log(formData)
+        // console.log(formData)
     }
 
   return (

@@ -23,7 +23,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
 
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
-    const [newMessage, setNewMessage] = useState()
+    const [newMessage, setNewMessage] = useState("")
     const [socketConnected, setSocketConnected] = useState(false)
     const [typing, setTyping]=useState(false)
     const [isTyping, setIsTyping] = useState(false)
@@ -54,7 +54,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
         const { data }= await axios.get(`/api/message/${selectedChat._id}`, config)
 
         setMessages(data)
-        console.log(messages)
+        //console.log(messages)
         setLoading(false)
 
         socket.emit("join chat", selectedChat._id)
@@ -119,7 +119,7 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
             content:newMessage,
             chatId:selectedChat._id
           }, config)
-          console.log(data)
+          // console.log(data)
 
           socket.emit("new message", data)
           setMessages((prevstate)=>[...prevstate, data])

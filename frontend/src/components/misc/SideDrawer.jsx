@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider'
 import { Box, Text } from '@chakra-ui/layout'
-import { Avatar, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
+import { Avatar, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Input, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Spinner, Tooltip, useDisclosure, useToast } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/button'
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons"
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
