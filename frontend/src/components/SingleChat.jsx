@@ -8,7 +8,7 @@ import UpdateGroupChatModal from './UpdateGroupChatModal';
 import axios from 'axios';
 import ViewChats from './ViewChats';
 import io from "socket.io-client"
-import Lottie  from "react-lottie"
+//import Lottie  from "react-lottie"
 import animationData from "../animations/typing.json"
 
 const ENDPOINT="https://frenschat.herokuapp.com/"
@@ -28,14 +28,14 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
     const [typing, setTyping]=useState(false)
     const [isTyping, setIsTyping] = useState(false)
 
-    const defaultOptions={
-      loop: true,
-      autoplay: true,
-      animationData:animationData,
-      renderSettings:{
-        preserveAspectRatio: "xMidYMid slice"
-      }
-    }
+    // const defaultOptions={
+    //   loop: true,
+    //   autoplay: true,
+    //   animationData:animationData,
+    //   renderSettings:{
+    //     preserveAspectRatio: "xMidYMid slice"
+    //   }
+    // }
 
     const fetchMessages=async()=>{
       if(!selectedChat){
@@ -200,7 +200,8 @@ const SingleChat = ({fetchAgain, setFetchAgain}) => {
                 </div>)}
                 <FormControl onKeyDown={sendMessage} mt={3} isRequired>
                   {isTyping?<div>
-                    <Lottie options={defaultOptions} width={70} style={{marginBottom:"15px", marginLeft:"0"}}/>
+                    {/* <Lottie options={defaultOptions} width={70} style={{marginBottom:"15px", marginLeft:"0"}}/> */}
+                    Typing...
                   </div>:<></>}
                   <Input varient="filled" bg="#E0E0E0" placeholder="Enter a Message" onChange={typingHandler} value={newMessage}/>
                 </FormControl>
